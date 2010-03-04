@@ -17,7 +17,10 @@ module Rapleaf
 
     # This resource is used to retrieve information about a person, identified
     # using an email address or email address hash.
-    # Example: person(:email => 'dummy@rapleaf.com')
+    # Examples:
+    #  person(:email => 'dummy@rapleaf.com')
+    #  person(:sha1 => SHA1.hexdigest('dummy@rapleaf.com'))
+    #  person(:md5 => MD5.hexdigest('dummy@rapleaf.com'))
     def person( opts = {} )
       resp = Net::HTTP.get_response(URI.parse(person_url(opts)))
 
@@ -41,9 +44,15 @@ module Rapleaf
 
   private
     def person_url(opts)
-      raise ArgumentError, 'Email address must be provided' if opts[:email].nil? || opts[:email] == ''
+      email = opts[:email]
+      md5 = opts[:md5]
+      sha1 = opts[:sha1]
 
-      "http://#{@host}:#{@port}/#{@version}/person/#{opts[:email]}?api_key=#{@api_key}"
+      email_or_hash = [email, md5, sha1].compact
+      raise ArgumentError, 'Please provide only one of :email, :md5 or :sha1' if email_or_hash.size > 1
+      raise ArgumentError, 'Email address or hash must be provided' if email_or_hash.empty? || '' == email_or_hash[0]
+
+      "http://#{@host}:#{@port}/#{@version}/person/#{email_or_hash[0]}?api_key=#{@api_key}"
     end
 
   end
