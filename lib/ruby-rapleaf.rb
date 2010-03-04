@@ -17,7 +17,7 @@ module Rapleaf
   # API Constants
   API_HOST = 'api.rapleaf.com'
   API_PORT = 80
-  API_VERSION = 'v2'
+  API_VERSION = 'v3'
 
 end
 
