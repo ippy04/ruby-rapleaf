@@ -66,7 +66,32 @@ module Rapleaf
       raise ArgumentError, 'Please provide only one of :email, :md5 or :sha1' if email_or_hash.size > 1
       raise ArgumentError, 'Email address or hash must be provided' if email_or_hash.empty? || '' == email_or_hash[0]
 
-      "http://#{@host}:#{@port}/#{@version}/person/#{email_or_hash[0]}?api_key=#{@api_key}"
+      case @version
+      when "v2"
+        person_url_v2_by_email_or_hash(email_or_hash[0])
+      when "v3"
+        if email
+          person_url_v3_by_email(email)
+        elsif md5
+          person_url_v3_by_hash(:md5, md5)
+        else
+          person_url_v3_by_hash(:sha1, sha1)
+        end
+      else
+        raise ArgumentError, "Person queries not supported for API version #{@version}"
+      end
+    end
+
+    def person_url_v2_by_email_or_hash(email_or_hash)
+      "http://#{@host}:#{@port}/v2/person/#{email_or_hash}?api_key=#{@api_key}"
+    end
+
+    def person_url_v3_by_email(email)
+      "http://#{@host}:#{@port}/v3/person/email/#{email}?api_key=#{@api_key}"
+    end
+
+    def person_url_v3_by_hash(algo, hash)
+      "http://#{@host}:#{@port}/v3/person/hash/#{algo}/#{hash}?api_key=#{@api_key}"
     end
 
   end
