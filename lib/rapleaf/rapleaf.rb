@@ -43,10 +43,6 @@ module Rapleaf
       end
     end
 
-    def abook( opts = {} )
-      # TODO
-    end
-
   end
 
 end
