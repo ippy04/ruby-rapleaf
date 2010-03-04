@@ -1,6 +1,6 @@
 = ruby-rapleaf
 
-* http://github.com/grempe/ruby-rapleaf
+* http://github.com/samstokes/ruby-rapleaf
 
 == DESCRIPTION:
 
@@ -14,15 +14,23 @@ This library was inspired by the sample code provided by Rapleaf at:
 
 http://trac.rapleaf.com/ruby-api-kit/wiki
 
-The code was extensively re-written so it would work with the current
-Rapleaf v2 API and is provided for your use.  Sorry that no support
-for this library is currently available.  However, Git pull requests/patches
-are accepted.
+The code was extensively re-written by Glenn Rempe so it would work with the
+then-current Rapleaf v2 API, and further modified by Sam Stokes to support the
+v3 API.
+
+=== Original (v2 API compatible)
 
 http://github.com/grempe/ruby-rapleaf
 
 Glenn Rempe
 glenn@rempe.us
+
+=== Updated (v3 API compatible)
+
+http://github.com/samstokes/ruby-rapleaf
+
+Sam Stokes
+sam@rapportive.com
 
 == SYNOPSIS:
 
@@ -37,6 +45,8 @@ To run any of the examples, simply run it like:
   cd examples
   ruby person.rb
 
+(There are some known problems running the examples at the moment... sorry!)
+
 == REQUIREMENTS:
 
 The following gems are required for installation of the ruby-rapleaf gem.
@@ -46,17 +56,11 @@ The following gems are required for installation of the ruby-rapleaf gem.
 
 == INSTALL:
 
-Install as a Ruby Gem with:
+Sorry, there's no hosted gem at the moment!
 
-  Update to RubyGems 1.2.0 before proceeding!!
+You can build the gem yourself and install as a Ruby Gem with:
 
-  gem sources -a http://gems.github.com (you only have to do this once)
-
-  sudo gem install grempe-ruby-rapleaf
-
-  # OR
-
-  git clone git://github.com/grempe/ruby-rapleaf.git
+  git clone git://github.com/samstokes/ruby-rapleaf.git
   cd ruby-rapleaf
   rake gem
   rake install_gem
@@ -68,7 +72,7 @@ provided below.
 
 RUBY LICENSE
 
-Copyright (c) 2008 Glenn Rempe
+Copyright (c) 2008-2010 Glenn Rempe, 2010 Sam Stokes
 
 http://www.ruby-lang.org/en/LICENSE.txt
 

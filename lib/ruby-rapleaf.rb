@@ -12,7 +12,7 @@ require 'rapleaf/responses.rb'
 
 module Rapleaf
 
-  VERSION = '0.1.5'
+  VERSION = '0.1.6'
 
   # API Constants
   API_HOST = 'api.rapleaf.com'

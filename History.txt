@@ -1,6 +1,11 @@
-=== 1.0.0 / 2008-08-27
+=== 0.1.6 / 2010-03-04
 
-* 1 major enhancement
+* Modified by Sam Stokes
 
-  * Birthday!
+  * Support for Rapleaf Person API v3 (which is now the default)
 
+  * Work around Rapleaf bug: they think email addresses containing '+' are malformed, so for those we send them hashes instead.
+
+=== 0.1.5 / 2008-08-28
+
+* Original version by Glenn Rempe, with support for Rapleaf Person API v2
