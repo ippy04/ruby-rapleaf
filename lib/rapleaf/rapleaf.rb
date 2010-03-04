@@ -19,11 +19,7 @@ module Rapleaf
     # using an email address or email address hash.
     # Example: person(:email => 'dummy@rapleaf.com')
     def person( opts = {} )
-
-      raise ArgumentError, 'Email address must be provided' if opts[:email].nil? || opts[:email] == ''
-
-      url = "http://#{@host}:#{@port}/#{@version}/person/#{opts[:email]}?api_key=#{@api_key}"
-      resp = Net::HTTP.get_response(URI.parse(url))
+      resp = Net::HTTP.get_response(URI.parse(person_url(opts)))
 
       case resp.code
       when '200'
@@ -41,6 +37,13 @@ module Rapleaf
       else
         raise Error, 'Unknown error'
       end
+    end
+
+  private
+    def person_url(opts)
+      raise ArgumentError, 'Email address must be provided' if opts[:email].nil? || opts[:email] == ''
+
+      "http://#{@host}:#{@port}/#{@version}/person/#{opts[:email]}?api_key=#{@api_key}"
     end
 
   end
