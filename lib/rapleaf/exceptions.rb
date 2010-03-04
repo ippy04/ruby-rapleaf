@@ -25,6 +25,14 @@ module Rapleaf
   class ForbiddenQueryLimitExceeded < Error #:nodoc:
   end
 
+  # 404 Not Found
+  # Queried using a hash of an address Rapleaf didn't know.
+  # (This doesn't happen when querying for the address directly, because
+  # Rapleaf just creates a new person with that address if they didn't
+  # have them already.)
+  class NotFound < Error #:nodoc:
+  end
+
   # 500 Internal Server Error
   # There was an unexpected error on our server. This should be very
   # rare and if you see it please contact developer@rapleaf.com.

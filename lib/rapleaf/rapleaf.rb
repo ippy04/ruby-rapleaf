@@ -35,6 +35,8 @@ module Rapleaf
         raise AuthFailure, 'API key was not provided or is invalid.'
       when '403'
         raise ForbiddenQueryLimitExceeded, 'Your query limit has been exceeded. Contact developer@rapleaf.com if you would like to increase your limit.'
+      when '404'
+        raise NotFound, 'We do not have this email in our system and are not able to create a person using a hash. If you would like better results, consider supplying the unhashed email address.'
       when '500'
         raise InternalServerError, 'There was an unexpected error on our server. This should be very rare and if you see it please contact developer@rapleaf.com.'
       else
