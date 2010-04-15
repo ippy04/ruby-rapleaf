@@ -1,4 +1,5 @@
 require 'md5'
+require 'uri'
 
 module Rapleaf
 
@@ -52,15 +53,10 @@ module Rapleaf
       md5 = opts[:md5]
       sha1 = opts[:sha1]
 
-      # Rapleaf thinks emails can't contain '+' characters.
-      # As a workaround, for such an email, always send a hash instead.
-      # (N.B. this will probably always return 404, since Rapleaf can't
-      # know about that person, as they reject his email address!  But it
-      # prevents getting a spurious 400 "malformed email" error.)
-      if email && email =~ /\+/ && !md5
-        md5 = MD5.hexdigest(email)
-        email = nil
-      end
+      # Rapleaf requires email addresses be urlencoded
+      # Pass our own "unsafe regex" as URI.escape's default is too permissive
+      # (lets + through, but Rapleaf rejects it)
+      email = URI.escape(email, /[^a-zA-Z0-9.\-_]/) if email
 
       email_or_hash = [email, md5, sha1].compact
       raise ArgumentError, 'Please provide only one of :email, :md5 or :sha1' if email_or_hash.size > 1
