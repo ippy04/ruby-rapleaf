@@ -1,3 +1,13 @@
+=== 0.1.7 / 2010-04-14
+
+* URLencode email addresses before sending them to Rapleaf.
+
+* Remove workaround for mistakenly diagnosed problem (thought Rapleaf rejected emails containing '+', they just required encoding).
+
+* Use existing PersonEmailHashNotFound exception for 404 when looking up by hash
+
+  * removed NotFound class added in 0.1.6
+
 === 0.1.6 / 2010-03-04
 
 * Modified by Sam Stokes
