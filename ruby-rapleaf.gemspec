@@ -1,10 +1,10 @@
 Gem::Specification.new do |s|
   s.name = %q{ruby-rapleaf}
-  s.version = "0.1.7"
+  s.version = "0.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Glenn Rempe", "Sam Stokes"]
-  s.date = %q{2010-04-14}
+  s.date = %q{2010-04-24}
   s.description = %q{Rapleaf's goal is to make the internet safe and transparent, by allowing you to evaluate your web footprint across a variety of user-generated sites. See http://www.rapleaf.com for more information.}
   s.email = ["glenn@rempe.us", "sam@rapportive.com"]
   s.extra_rdoc_files = ["History.txt", "Manifest.txt", "README.txt"]

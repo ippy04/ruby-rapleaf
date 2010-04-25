@@ -1,3 +1,7 @@
+=== 0.2.0 / 2010/04/24
+
+* Support Person API lookup by site profile (e.g. Twitter username) for API v3.
+
 === 0.1.7 / 2010-04-14
 
 * URLencode email addresses before sending them to Rapleaf.
