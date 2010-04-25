@@ -22,6 +22,7 @@ module Rapleaf
     # using an email address or email address hash.
     # Examples:
     #  person(:email => 'dummy@rapleaf.com')
+    #  person(:site => :twitter, :profile => 'samstokes')
     #  person(:sha1 => SHA1.hexdigest('dummy@rapleaf.com'))
     #  person(:md5 => MD5.hexdigest('dummy@rapleaf.com'))
     def person( opts = {} )
@@ -50,6 +51,14 @@ module Rapleaf
   private
     def person_url(opts)
       email = opts[:email]
+
+      site_profile = [opts[:site], opts[:profile]]
+      if site_profile.any?
+        raise ArgumentError, 'Require both :site and :profile if either is specified' unless site_profile.all?
+      else
+        site_profile = nil
+      end
+
       md5 = opts[:md5]
       sha1 = opts[:sha1]
 
@@ -58,16 +67,21 @@ module Rapleaf
       # (lets + through, but Rapleaf rejects it)
       email = URI.escape(email, /[^a-zA-Z0-9.\-_]/) if email
 
-      email_or_hash = [email, md5, sha1].compact
-      raise ArgumentError, 'Please provide only one of :email, :md5 or :sha1' if email_or_hash.size > 1
-      raise ArgumentError, 'Email address or hash must be provided' if email_or_hash.empty? || '' == email_or_hash[0]
+      selector = [email, site_profile, md5, sha1].compact
+      raise ArgumentError, 'Please provide only one of :email, [:site and :profile], :md5 or :sha1' if selector.size > 1
+      raise ArgumentError, 'Person selector must be provided' if selector.empty? || '' == selector[0]
 
       case @version
       when "v2"
+        if site_profile
+          raise ArgumentError, 'Query by website ID requires API v3 or greater'
+        end
         person_url_v2_by_email_or_hash(email_or_hash[0])
       when "v3"
         if email
           person_url_v3_by_email(email)
+        elsif site_profile
+          person_url_v3_by_site_profile(*site_profile)
         elsif md5
           person_url_v3_by_hash(:md5, md5)
         else
@@ -84,6 +98,11 @@ module Rapleaf
 
     def person_url_v3_by_email(email)
       "http://#{@host}:#{@port}/v3/person/email/#{email}?api_key=#{@api_key}"
+    end
+
+    def person_url_v3_by_site_profile(site, profile)
+      # TODO validate param formats
+      "http://#{@host}:#{@port}/v3/person/web/#{site}/#{profile}?api_key=#{@api_key}"
     end
 
     def person_url_v3_by_hash(algo, hash)
