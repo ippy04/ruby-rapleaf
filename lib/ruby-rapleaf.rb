@@ -6,9 +6,10 @@ require 'net/http'
 require 'builder'
 require 'ostruct'
 
-require 'rapleaf/rapleaf.rb'
-require 'rapleaf/exceptions.rb'
-require 'rapleaf/responses.rb'
+library_files = Dir[File.join(File.dirname(__FILE__), "/rapleaf/**/*.rb")]
+library_files.each do |file|
+  require file.gsub(/\.rb$/, "")
+end
 
 module Rapleaf
 
