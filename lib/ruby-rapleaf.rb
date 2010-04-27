@@ -13,7 +13,7 @@ end
 
 module Rapleaf
 
-  VERSION = '0.2.0'
+  VERSION = '0.2.1'
 
   # API Constants
   API_HOST = 'api.rapleaf.com'

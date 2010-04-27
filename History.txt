@@ -1,3 +1,7 @@
+=== 0.2.1 / 2010/04/27
+
+* If unexpected response code, exception should include diagnostic info
+
 === 0.2.0 / 2010/04/24
 
 * Support Person API lookup by site profile (e.g. Twitter username) for API v3.
