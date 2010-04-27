@@ -44,7 +44,9 @@ module Rapleaf
       when '500'
         raise InternalServerError, 'There was an unexpected error on our server. This should be very rare and if you see it please contact developer@rapleaf.com.'
       else
-        raise Error, 'Unknown error'
+        msg = resp.body[0,50]
+        msg << "..." if 50 < resp.body.length
+        raise Error, %(Unexpected response code #{resp.code}: "#{msg}")
       end
     end
 
